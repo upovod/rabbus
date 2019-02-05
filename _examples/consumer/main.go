@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/rafaeljesus/rabbus"
+	"github.com/upovod/rabbus"
 )
 
 var (

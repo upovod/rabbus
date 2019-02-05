@@ -6,10 +6,10 @@ import (
 	"sync"
 	"time"
 
-	amqpWrap "github.com/rafaeljesus/rabbus/internal/amqp"
 	"github.com/rafaeljesus/retry-go"
 	"github.com/sony/gobreaker"
 	"github.com/streadway/amqp"
+	amqpWrap "github.com/upovod/rabbus/internal/amqp"
 )
 
 const (
@@ -145,10 +145,6 @@ type (
 )
 
 func (lc ListenConfig) validate() error {
-	if lc.Exchange == "" {
-		return ErrMissingExchange
-	}
-
 	if lc.Kind == "" {
 		return ErrMissingKind
 	}
