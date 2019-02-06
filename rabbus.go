@@ -167,6 +167,7 @@ func New(dsn string, options ...Option) (*Rabbus, error) {
 		reconn:     make(chan struct{}),
 		exDeclared: make(map[string]struct{}),
 	}
+	r.exDeclared[""] = struct{}{} // do not declare default exchange
 
 	for _, o := range options {
 		if err := o(r); err != nil {
