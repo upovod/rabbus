@@ -42,8 +42,10 @@ func (ai *Amqp) CreateConsumer(exchange, key, kind, queue string, durable bool) 
 		return nil, err
 	}
 
-	if err := ai.ch.QueueBind(q.Name, key, exchange, false, nil); err != nil {
-		return nil, err
+	if exchange != "" {
+		if err := ai.ch.QueueBind(q.Name, key, exchange, false, nil); err != nil {
+			return nil, err
+		}
 	}
 
 	return ai.ch.Consume(q.Name, "", false, false, false, false, nil)
@@ -51,6 +53,9 @@ func (ai *Amqp) CreateConsumer(exchange, key, kind, queue string, durable bool) 
 
 // WithExchange creates a amqp exchange
 func (ai *Amqp) WithExchange(exchange, kind string, durable bool) error {
+	if exchange == "" {
+		return nil
+	}
 	if ai.passiveExchange {
 		return ai.ch.ExchangeDeclarePassive(exchange, kind, durable, false, false, false, nil)
 	}
